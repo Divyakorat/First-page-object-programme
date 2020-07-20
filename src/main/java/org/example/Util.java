@@ -1,8 +1,14 @@
 package org.example;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.io.File;
+import java.io.IOException;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 import static org.openqa.selenium.support.ui.ExpectedConditions.stalenessOf;
@@ -69,6 +75,26 @@ public class Util extends BasePage{
         typeText(By.id("Email"),"divyapatel@gmail.com");
         typeText(By.id("Password"),"dp123456");
         clickOnElement(By.xpath("//input[@value=\"Log in\"]"));
+    }
+    public static String alertMethod()
+    {
+        driver.switchTo().alert().accept();
+      return driver.switchTo().alert().getText();
+
+    }
+    public void takeScreenShot(String screenShotName)
+    {
+        File srcFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+
+        try {
+
+            FileUtils.copyFile(srcFile, new File("src\\ScreenShot\\"+screenShotName+".jpg"));
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+
+        }
     }
 
 }
